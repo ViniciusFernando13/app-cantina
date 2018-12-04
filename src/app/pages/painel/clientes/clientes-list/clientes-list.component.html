@@ -1,0 +1,72 @@
+<div class="container-fluid pt-3 px-5">
+  <div class="row">
+    <div class="col-7">
+      <table class="table card">
+        <thead class="p-0 card-header">
+          <tr class="row px-0 mx-0">
+            <th class="col-1 text-center" scope="col">#id</th>
+            <th class="col-5" scope="col">Nome</th>
+            <th class="col-3" scope="col">Apelido</th>
+            <th class="col-3 text-center" scope="col">Editar</th>
+          </tr>
+        </thead>
+        <tbody class="card-body p-0 m-0">
+          <tr class="row px-0 mx-0" *ngFor="let cli of clientes">
+            <th scope="row" class="col-1 text-center">{{ cli.id }}</th>
+            <td class="col-5">{{ cli.nome }}</td>
+            <td class="col-3">{{ cli.apelido }}</td>
+            <td class="col-3 text-center px-5">
+              <div class="row">
+                <div class="col-6">
+                  <button class="btn btn-sm btn-block btn-warning" (click)="setCliente(cli)">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button class="btn btn-sm btn-block btn-danger" (click)="delete(cli.id)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-5">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              {{ id ? 'Editar' : 'Adicionar' }} Cliente
+            </div>
+            <div class="card-body px-5 pt-3 pb-0">
+              <div class="row form-group">
+                <input type="text" class="form-control col-12" placeholder="Nome" [(ngModel)]="nome">
+              </div>
+              <div class="row form-group">
+                <input type="text" class="form-control col-12" placeholder="Apelido" [(ngModel)]="apelido">
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              <div class="row">
+                <div class="col-12 pb-2" *ngIf="mensagem">
+                  <span>{{ mensagem }}</span>
+                </div>
+                <div class="col-12 pb-2" *ngIf="mensagemErr" [innerHTML]="mensagemErr">
+                </div>
+                <div class="col-5">
+                  <button type="button" class="btn btn-danger btn-block" (click)="limpar()">Limpar</button>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-5">
+                  <button type="button" class="btn btn-success btn-block" (click)="salvar()">Salvar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>   
+    </div>
+  </div>
+</div>

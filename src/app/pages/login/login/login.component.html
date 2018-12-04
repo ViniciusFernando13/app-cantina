@@ -1,0 +1,46 @@
+<div class="row pt-5">
+  <div class="offset-4 col-4 card py-4 px-4">
+
+    <div class="row">
+      <div class="col text-center icon">
+          <i class="fas fa-cookie-bite"></i><br>
+          Cantina
+          <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Email</label>
+          <input type="email" class="form-control" placeholder="name@example.com" [(ngModel)]="email">
+        </div>
+      </div>
+    </div><!-- EMAIL -->
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Password</label>
+          <input type="password" class="form-control" placeholder="******" [(ngModel)]="senha">
+        </div>
+      </div>
+    </div><!-- SENHA -->
+    
+    <div class="row pt-0 mt-0" *ngIf="erro">
+      <span class="col form-group">
+        {{ erro }}
+      </span>
+    </div>
+
+    <div class="row">
+      <div class="col-8">
+        <a href="">Esqueci minha senha</a>
+      </div><!-- ESQUECI MINHA SENHA -->
+
+      <div class="col-4">
+        <button (click)="login()" class="btn btn-dark btn-block">Entrar</button>
+      </div><!-- ENTRAR -->
+    </div>
+  </div>
+</div>

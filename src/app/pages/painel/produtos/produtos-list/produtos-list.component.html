@@ -1,0 +1,110 @@
+<div class="container-fluid pt-3 px-5">
+  <div class="row">
+    <div class="col-7">
+      <table class="table card">
+        <thead class="p-0 card-header">
+          <tr class="row px-0 mx-0">
+            <th class="col-1 text-center" scope="col">#id</th>
+            <th class="col-4" scope="col">Nome</th>
+            <th class="col-2 text-center" scope="col">Preço</th>
+            <th class="col-2 text-center" scope="col">Estoque</th>
+            <th class="col-3 text-center" scope="col">Editar</th>
+          </tr>
+        </thead>
+        <tbody class="card-body p-0 m-0">
+          <tr class="row px-0 mx-0" *ngFor="let cli of produtos">
+            <th scope="row" class="col-1 text-center">{{ cli.id }}</th>
+            <td class="col-4">{{ cli.nome }}</td>
+            <td class="col-2 text-center">R$ {{ cli.preco.toString().replace( '.', ',' ) }}</td>
+            <td class="col-2 text-center">{{ cli.estoque }}</td>
+            <td class="col-3 text-center px-5">
+              <div class="row">
+                <div class="col-6">
+                  <button class="btn btn-sm btn-block btn-warning" (click)="setProduto(cli)">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button class="btn btn-sm btn-block btn-danger" (click)="delete(cli.id)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-5">
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                Adicionar produto no estoque
+              </div>
+              <div class="card-body row px-4 pt-3 pb-0">
+                <div class="form-group col-6">
+                  <select [(ngModel)]="idEstoque" class="form-control">
+                    <option value="null">Selecione um Produto</option>
+                    <option [value]="cli.id" *ngFor="let cli of produtos">{{ cli.nome }}</option>
+                  </select>
+                </div>
+                <div class="col-6 form-group">
+                  <input type="number" class="form-control" step="1" min="1" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Entrada estoque" [(ngModel)]="estoque">
+                </div>
+              </div>
+              <div class="card-footer text-muted">
+                <div class="row">
+                  <div class="col-12 pb-2" *ngIf="mensagemEstoque">
+                    <span>{{ mensagemEstoque }}</span>
+                  </div>
+                  <div class="col-12 pb-2" *ngIf="mensagemEstoqueErr" [innerHTML]="mensagemEstoqueErr">
+                  </div>
+                  <div class="col-5">
+                    <button type="button" class="btn btn-danger btn-block" (click)="limpar()">Limpar</button>
+                  </div>
+                  <div class="col-2"></div>
+                  <div class="col-5">
+                    <button type="button" class="btn btn-success btn-block" (click)="atualizarEstoque()">Adicionar no estoque</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              {{ id ? 'Editar' : 'Adicionar' }} produto
+            </div>
+            <div class="card-body px-5 pt-3 pb-0">
+              <div class="row form-group">
+                <input type="text" class="form-control col-12" placeholder="Nome" [(ngModel)]="nome">
+              </div>
+              <div class="row form-group">
+                <input type="number" class="form-control col-12" min="0.01" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" placeholder="Preço" [(ngModel)]="preco">
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              <div class="row">
+                <div class="col-12 pb-2" *ngIf="mensagem">
+                  <span>{{ mensagem }}</span>
+                </div>
+                <div class="col-12 pb-2" *ngIf="mensagemErr" [innerHTML]="mensagemErr">
+                </div>
+                <div class="col-5">
+                  <button type="button" class="btn btn-danger btn-block" (click)="limpar()">Limpar</button>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-5">
+                  <button type="button" class="btn btn-success btn-block" (click)="salvar()">Salvar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>   
+    </div>
+  </div>
+</div>

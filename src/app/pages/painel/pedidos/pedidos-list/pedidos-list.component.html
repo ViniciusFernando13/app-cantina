@@ -1,0 +1,123 @@
+<div class="container-fluid pt-3 px-5">
+  <div class="row">
+    <div class="col-7">
+      <table class="table card">
+        <thead class="p-0 card-header">
+          <tr class="row px-0 mx-0">
+            <th class="col-1 text-center" scope="col">#id</th>
+            <th class="col-3" scope="col">Cliente</th>
+            <th class="col-2" scope="col">Apelido</th>
+            <th class="col-2 text-center" scope="col">Valor</th>
+            <th class="col-2" scope="col">Data</th>
+            <th class="col-2 text-center" scope="col">Produtos</th>
+          </tr>
+        </thead>
+        <tbody class="card-body p-0 m-0">
+          <tr class="row px-0 mx-0" *ngFor="let pedido of pedidos">
+            <th scope="row" class="col-1 text-center">{{ pedido.id }}</th>
+            <td class="col-3">{{ pedido.cliente }}</td>
+            <td class="col-2">{{ pedido.apelido }}</td>
+            <td class="col-2 text-center">R$ {{ pedido.valorTotal.toString().replace( '.', ',' ) }}</td>
+            <td class="col-2">{{ pedido.data | date: 'dd/MM/yyyy' }}</td>
+            <td class="col-2 text-center">
+              <button class="btn btn-sm btn-block btn-primary" (click)="verProdutos(pedido)">
+                Ver produtos
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-5">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              Adicionar Pedido
+            </div>
+            <div class="card-body px-5 pt-3 pb-0">
+              <div class="row form-group">
+                <span class="col-3 pl-0">Pesquisar por</span>
+                <select class="form-control col-9" [(ngModel)]="filtro">
+                  <option value="nome">Nome</option>
+                  <option value="apelido">Apelido</option>
+                </select>
+              </div>
+              <div class="row form-group">
+                <ngx-select-dropdown  
+                  class="col-12 px-0"
+                  [multiple]="false" 
+                  [(value)]="cliente" 
+                  [config]="{displayKey: filtro, search: true, placeholder:'Selecione um cliente', noResultsFound:'Nenhum cliente encontrado...', searchPlaceholder:'Procurar cliente'}" 
+                  [options]="clientes">
+                </ngx-select-dropdown>
+              </div>
+              <hr>
+              <div class="row form-group">
+                <ngx-select-dropdown  
+                  class="col-12 px-0"
+                  [multiple]="false" 
+                  [(value)]="produto" 
+                  [config]="{displayKey:'nome', search: true, placeholder:'Selecione um produto', noResultsFound:'Nenhum produto encontrado...', searchPlaceholder:'Procurar produto'}" 
+                  [(options)]="produtosList">
+                </ngx-select-dropdown>
+              </div>
+              <div class="row form-group">
+                <input type="text" *ngIf="!produto || !produto[0]" readonly class="col-12 form-control" value="Selecione um produto para visualizar o preço">
+                <input type="text" *ngIf="produto && produto[0]" readonly value="Preço unitário: R$ {{ produto[0].preco.toString().replace( '.', ',' ) }} " class="col-12 form-control">
+              </div>
+              <div class="row form-group">
+                <input type="number" class="form-control col-12" step="1" min="1" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Quantidade" [(ngModel)]="quantidade">
+              </div>
+              <div class="row form-group">
+                <div class="col-12 px-0">
+                  <button class="btn btn-block btn-success" (click)="adicionarItem()">
+                    <i class="fas fa-plus-circle"></i> Adicionar item
+                  </button>
+                </div>
+              </div>
+              <hr>
+              <div class="row form-group" *ngIf="produtosPedido.length > 0">
+                <ul class="list-group col-12 px-0">
+                  <li *ngFor="let item of produtosPedido" class="list-group-item d-flex justify-content-between align-items-center row">
+                    <div class="col-10 row">
+                      <span class="badge badge-primary badge-pill col-1 pt-2">{{ item.quantidade }}</span>
+                      <span class="col-8">{{ item.nome }}</span>
+                      <span class="badge badge-success badge-pill col-3 pt-2">R$ {{ item.valor.toString().replace( '.', ',' ) }}</span>
+                    </div>
+                    <div class="col-2 pr-0 pl-4">
+                      <button class="btn btn-sm btn-block btn-danger" (click)="remover( item.id )">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="row form-group" *ngIf="produtosPedido.length > 0">
+                <div class="alert alert-warning col-12 text-center" role="alert">
+                  Valor total: R$ {{ total.toString().replace( '.', ',' ) }}
+                </div>
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              <div class="row">
+                <div class="col-12 pb-2" *ngIf="mensagem">
+                  <span>{{ mensagem }}</span>
+                </div>
+                <div class="col-12 pb-2" *ngIf="mensagemErr" [innerHTML]="mensagemErr">
+                </div>
+                <div class="col-5">
+                  <button type="button" class="btn btn-danger btn-block" (click)="limpar()">Limpar</button>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-5">
+                  <button type="button" class="btn btn-success btn-block" (click)="salvar()">Salvar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>   
+    </div>
+  </div>
+</div>

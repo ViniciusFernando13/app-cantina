@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="row card-header font-weight-bold" *ngIf="pedido">
+    <span class="col-1">#{{ pedido.id }}</span>
+    <span class="col-8">{{ pedido.cliente }}</span>
+    <span class="col-2">{{ pedido.data | date: 'dd/MM/yyyy' }}</span>
+    <div class="col-1" (click)="modal.close('Ok click')">
+        <i class="fas fa-times-circle"></i>
+    </div>
+  </div>
+  <div class="row card-body px-5" *ngIf="itens.length > 0">
+    <ul class="list-group col-12 px-0">
+      <li *ngFor="let item of itens" class="list-group-item d-flex justify-content-between align-items-center row">
+        <span class="badge badge-primary badge-pill col-1 pt-2">{{ item.quantidade }}</span>
+        <span class="col-8">{{ item.produto }}</span>
+        <span class="badge badge-success badge-pill col-3 pt-2">R$ {{ item.valor.toString().replace( '.', ',' ) }}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="row card-footer">
+    <span class="col-12 text-right font-weight-bold">
+      Total R$ {{ pedido.valorTotal.toString().replace( '.', ',' ) }}
+    </span>
+  </div>
+</div>
