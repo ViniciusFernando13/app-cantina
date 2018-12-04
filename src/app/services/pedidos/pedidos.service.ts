@@ -55,6 +55,23 @@ export class PedidosService {
    * pega a listagem dos produtos
    *
    */
+  public listUltimoMes() {
+
+    // retorna uma promessa
+    return new Promise <Array<any>>( ( resolve, reject ) => {
+      this.api.get( 'pedidos/list_ultimo_mes' )
+      .then( pedidos => {
+        resolve( pedidos as Array<any> );
+      } ).catch( err => reject( err ) );
+    });
+  }
+
+  /**
+   * list
+   *
+   * pega a listagem dos produtos
+   *
+   */
   public listItens( idPedido ) {
 
     // retorna uma promessa

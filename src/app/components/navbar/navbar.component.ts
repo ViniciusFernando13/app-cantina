@@ -19,6 +19,11 @@ export class NavbarComponent implements OnInit {
     this.currentUrl = window.location.href.replace('http://localhost:4200/painel',''); 
   }
 
+  async logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
+
   setRoute( route ) {
     this.currentUrl = route;
   }

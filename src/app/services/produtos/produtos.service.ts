@@ -103,4 +103,21 @@ export class ProdutosService {
       } ).catch( err => reject( err ) );
     });
   }
+
+  /**
+   * list
+   *
+   * pega a listagem dos produtos
+   *
+   */
+  public listEstoqueFinal() {
+
+    // retorna uma promessa
+    return new Promise <Array<any>>( ( resolve, reject ) => {
+      this.api.get( 'produtos/list_final_estoque' )
+      .then( clis => {
+        resolve( clis as Array<any> );
+      } ).catch( err => reject( err ) );
+    });
+  }
 }

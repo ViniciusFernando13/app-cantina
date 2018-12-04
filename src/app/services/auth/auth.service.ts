@@ -37,6 +37,17 @@ export class AuthService {
   }
 
   /**
+   * login
+   *
+   * faz o login
+   *
+   * @param usuario
+   */
+  public logout() {
+    localStorage.clear();
+  }
+
+  /**
    * insert
    *
    * cadastra o usuario

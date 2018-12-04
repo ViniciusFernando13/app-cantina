@@ -1,0 +1,11 @@
+.card {
+    width: 100%;
+}
+
+.card-text {
+    font-size: 42px;
+}
+
+.card-header {
+    font-weight: bold;
+}
